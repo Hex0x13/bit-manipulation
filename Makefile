@@ -1,7 +1,7 @@
 CC := gcc
 FLAGS := -Wall -Wextra -std=c99
 SRC := src/bitmanip.c
-DEST := bitmanip
+DEST := dest/bitmanip
 
 all: $(DEST)
 
