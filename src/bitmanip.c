@@ -52,10 +52,12 @@ static char * to_bit_repr(int *src) {
 
 void printErr(char *arg) {
     fprintf(stderr, "Usage: %s [flags] [number] [position]\n\n", arg);
-    fprintf(stderr, "-s, set = set the particular bit in an integer to 1\n");
-    fprintf(stderr, "-c, clear = set the particular bit in an integer to 0\n");
-    fprintf(stderr, "-t, toggle = toggle the particular bit in an integer to 0 if bit == 1 else 1\n");
-    fprintf(stderr, "-?s, check = check the particular bit is set\n");
+    fprintf(stderr,
+            "-s, set = set the particular bit in an integer to 1\n"
+            "-c, clear = set the particular bit in an integer to 0\n"
+            "-t, toggle = toggle the particular bit in an integer to 0 if bit == 1 else 1\n"
+            "-?s, check = check the particular bit is set\n"
+    );
 }
 
 int main(int argc, char *argv[]) {
