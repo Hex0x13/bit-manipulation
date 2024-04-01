@@ -1,3 +1,5 @@
+#include <errno.h>
+#include <limits.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -63,23 +65,27 @@ void printErr(char *arg) {
     );
 }
 
+long strtol_s(char *str) {
+    char *endptr;
+    long n = strtol(str, &endptr, 10);
+    if ((errno == ERANGE && (n == LONG_MIN || n == LONG_MAX)) || (errno != 0 && n == 0)) {
+        perror("strtol error");
+        exit(1);
+    }
+    if (endptr == str || *endptr != '\0') {
+        fprintf(stderr, "Input contains non-numeric characters\n");
+        exit(1);
+    }
+    return  n;
+}
+
 int main(int argc, char *argv[]) {
     if (argc == 4) {
-        char *endptr;
         char *flag = argv[1];
         int result;
+        long n = strtol_s(argv[2]);
+        long pos = strtol_s(argv[3]);
 
-        long n = strtol(argv[2], &endptr, 10);
-        if (endptr == argv[2] || *endptr != '\0') {
-            printErr(argv[0]);
-            return 1;
-        }
-
-        long pos = strtol(argv[3], &endptr, 10);
-        if (endptr == argv[2] || *endptr != '\0') {
-            printErr(argv[0]);
-            return 1;
-        }
 
         if (strncmp(flag, "set", FLAG_LENGTH_LIMIT) == 0 || strncmp(flag, "-s", FLAG_LENGTH_LIMIT) == 0) {
             result = bit_set(n, pos);
