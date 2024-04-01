@@ -2,6 +2,9 @@
 #include <stdlib.h>
 #include <string.h>
 
+#define FLAG_LENGTH_LIMIT 8
+
+
 int bit_set(int n, int pos) {
     int mask = 1 << pos;
     return n | mask;
@@ -64,7 +67,6 @@ int main(int argc, char *argv[]) {
     if (argc == 4) {
         char *endptr;
         char *flag = argv[1];
-        int str_limit = 8;
         int result;
 
         long n = strtol(argv[2], &endptr, 10);
@@ -79,13 +81,13 @@ int main(int argc, char *argv[]) {
             return 1;
         }
 
-        if (strncmp(flag, "set", str_limit) == 0 || strncmp(flag, "-s", str_limit) == 0) {
+        if (strncmp(flag, "set", FLAG_LENGTH_LIMIT) == 0 || strncmp(flag, "-s", FLAG_LENGTH_LIMIT) == 0) {
             result = bit_set(n, pos);
-        } else if (strncmp(flag, "clear", str_limit) == 0 || strncmp(flag, "-c", str_limit) == 0) {
+        } else if (strncmp(flag, "clear", FLAG_LENGTH_LIMIT) == 0 || strncmp(flag, "-c", FLAG_LENGTH_LIMIT) == 0) {
             result = bit_clear(n, pos);
-        } else if (strncmp(flag, "toggle", str_limit) == 0 || strncmp(flag, "-t", str_limit) == 0) {
+        } else if (strncmp(flag, "toggle", FLAG_LENGTH_LIMIT) == 0 || strncmp(flag, "-t", FLAG_LENGTH_LIMIT) == 0) {
             result = bit_toggle(n, pos);
-        } else if (strncmp(flag, "check", str_limit) == 0 || strncmp(flag, "-?s", str_limit) == 0) {
+        } else if (strncmp(flag, "check", FLAG_LENGTH_LIMIT) == 0 || strncmp(flag, "-?s", FLAG_LENGTH_LIMIT) == 0) {
             if (is_bit_set(n, pos)) {
                 printf("Result: true\n");
             } else {
